@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SPACE FIGHT SHOOTER</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- HUD -->
+    <div id="gameHUD" class="hidden">
+
+        <div class="hud-left">
+
+            <div class="hud-box">
+                <span class="hud-label">SCORE</span>
+                <span id="score" class="hud-value">0</span>
+            </div>
+
+            <div class="hud-box">
+                <span class="hud-label">WAVE</span>
+                <span id="wave" class="hud-value">1</span>
+            </div>
+
+            <div class="hud-box">
+                <span class="hud-label">KILLS</span>
+                <span id="kills" class="hud-value">0</span>
+            </div>
+
+        </div>
+
+        <div class="hud-right">
+
+            <div class="health-box">
+
+                <div class="health-top">
+                    <span>HULL</span>
+                    <span id="healthText">100 / 100</span>
+                </div>
+
+                <div class="health-background">
+                    <div id="healthBar"></div>
+                </div>
+
+            </div>
+
+            <button id="pauseButton" class="hud-button">
+                PAUSE
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN MENU -->
+    <div id="startScreen" class="screen">
+
+        <div class="menu-card">
+
+            <div class="game-tag">
+                SPACE COMBAT SIMULATION
+            </div>
+
+            <h1>
+                SPACE FIGHT
+                <br>
+                <span>SHOOTER</span>
+            </h1>
+
+            <p class="subtitle">
+                DEFEND THE GALAXY
+            </p>
+
+            <div class="pilot-display">
+                PILOT:
+                <strong id="menuPlayerName">ENTER NAME</strong>
+            </div>
+
+            <div class="best-score-box">
+
+                <div class="best-item">
+                    <span>BEST SCORE</span>
+                    <strong id="bestScore">0</strong>
+                </div>
+
+                <div class="best-item">
+                    <span>BEST WAVE</span>
+                    <strong id="bestWave">1</strong>
+                </div>
+
+                <div class="best-item">
+                    <span>TOTAL KILLS</span>
+                    <strong id="totalKills">0</strong>
+                </div>
+
+            </div>
+
+            <button id="launchButton" class="menu-button main-button">
+                🚀 LAUNCH MISSION
+            </button>
+
+            <button id="hangarButton" class="menu-button secondary-button">
+                🛸 SHIP HANGAR
+            </button>
+
+            <div class="small-buttons">
+
+                <button id="profileButton" class="small-button">
+                    👤 PROFILE
+                </button>
+
+                <button id="aboutButton" class="small-button">
+                    📖 ABOUT
+                </button>
+
+            </div>
+
+            <div class="controls-box">
+
+                <h3>CONTROLS</h3>
+
+                <p><b>W / ↑</b> Move Up</p>
+                <p><b>S / ↓</b> Move Down</p>
+                <p><b>A / ←</b> Move Left</p>
+                <p><b>D / →</b> Move Right</p>
+                <p><b>SPACE</b> Energy Pulse</p>
+                <p><b>P</b> Pause</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROFILE -->
+    <div id="profileScreen" class="screen hidden">
+
+        <div class="info-card">
+
+            <button id="profileBackButton" class="back-button">
+                ← BACK
+            </button>
+
+            <div class="game-tag">
+                PILOT DATABASE
+            </div>
+
+            <h2>YOUR PROFILE</h2>
+
+            <div class="profile-icon">
+                👨‍🚀
+            </div>
+
+            <label class="input-label">
+                ENTER YOUR NAME
+            </label>
+
+            <input
+                id="playerNameInput"
+                class="name-input"
+                type="text"
+                maxlength="18"
+                placeholder="Type your name..."
+                autocomplete="off"
+            >
+
+            <p id="nameMessage" class="name-message"></p>
+
+            <button id="saveNameButton" class="menu-button main-button">
+                SAVE NAME
+            </button>
+
+            <div class="profile-stats">
+
+                <div>
+                    <span>BEST SCORE</span>
+                    <strong id="profileBestScore">0</strong>
+                </div>
+
+                <div>
+                    <span>TOTAL KILLS</span>
+                    <strong id="profileTotalKills">0</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ABOUT -->
+    <div id="aboutScreen" class="screen hidden">
+
+        <div class="info-card about-card">
+
+            <button id="aboutBackButton" class="back-button">
+                ← BACK
+            </button>
+
+            <div class="game-tag">
+                GAME INFORMATION
+            </div>
+
+            <h2>ABOUT THE GAME</h2>
+
+            <div class="about-content">
+
+                <h3>🚀 SPACE FIGHT SHOOTER</h3>
+
+                <p>Welcome, pilot.</p>
+
+                <p>
+                    Survive enemy waves, protect your hull,
+                    increase your score and unlock new ships.
+                </p>
+
+                <div class="feature">🛸 3 Ship System</div>
+                <div class="feature">🛡️ Hull System</div>
+                <div class="feature">⚡ Ship Abilities</div>
+                <div class="feature">🏆 Best Score</div>
+                <div class="feature">🌊 Wave System</div>
+                <div class="feature">📱 Mobile Controls</div>
+                <div class="feature">👤 Pilot Profile</div>
+                <div class="feature">🎵 Space Music</div>
+
+            </div>
+
+            <div class="version">
+                SPACE FIGHT SHOOTER • VERSION 1.0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SHIP HANGAR -->
+    <div id="hangarScreen" class="screen hidden">
+
+        <div class="hangar-card">
+
+            <button id="backButton" class="back-button">
+                ← BACK
+            </button>
+
+            <div class="game-tag">
+                SPACE FLEET
+            </div>
+
+            <h2>SHIP HANGAR</h2>
+
+            <p class="hangar-subtitle">
+                Choose your ship and ability
+            </p>
+
+            <div class="skin-grid">
+
+
+                <!-- STARTER SHIP -->
+                <button
+                    class="skin-button"
+                    data-skin="starter"
+                >
+
+                    <div class="ship-image-box">
+
+                        <img
+                            src="./asset/player-ship.png"
+                            alt="Starter Ship"
+                        >
+
+                    </div>
+
+                    <span class="skin-name">
+                        STARTER SHIP
+                    </span>
+
+                    <span class="ability-title">
+                        ⚙️ ABILITY: BALANCED
+                    </span>
+
+                    <span class="ability-description">
+                        Hull: 100 • Pulse: 60
+                    </span>
+
+                    <span class="skin-price unlocked">
+                        ✓ FREE
+                    </span>
+
+                </button>
+
+
+                <!-- BLUE SHIP -->
+                <button
+                    class="skin-button"
+                    data-skin="blue"
+                >
+
+                    <div class="ship-image-box">
+
+                        <img
+                            src="./asset/blue-skin.png"
+                            alt="Blue Falcon"
+                        >
+
+                    </div>
+
+                    <span class="skin-name">
+                        BLUE FALCON
+                    </span>
+
+                    <span class="ability-title">
+                        🛡️ ABILITY: HEAVY HULL
+                    </span>
+
+                    <span class="ability-description">
+                        Hull: 150 • Pulse: 60
+                    </span>
+
+                    <span class="skin-price unlocked">
+                        ✓ FREE
+                    </span>
+
+                </button>
+
+
+                <!-- GREEN SHIP -->
+                <button
+                    class="skin-button"
+                    data-skin="green"
+                >
+
+                    <div class="ship-image-box">
+
+                        <img
+                            src="./asset/green-skin.png"
+                            alt="Green Nova"
+                        >
+
+                    </div>
+
+                    <span class="skin-name">
+                        GREEN NOVA
+                    </span>
+
+                    <span class="ability-title">
+                        ⚡ ABILITY: POWER PULSE
+                    </span>
+
+                    <span class="ability-description">
+                        Hull: 100 • Pulse: 85
+                    </span>
+
+                    <span
+                        id="greenRequirement"
+                        class="skin-price"
+                    >
+                        🔒 100 KILLS
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PAUSE -->
+    <div id="pauseScreen" class="screen hidden">
+
+        <div class="pause-card">
+
+            <div class="game-tag">
+                MISSION CONTROL
+            </div>
+
+            <h2>MISSION PAUSED</h2>
+
+            <button id="resumeButton" class="menu-button main-button">
+                ▶ RESUME
+            </button>
+
+            <button id="pauseMenuButton" class="menu-button secondary-button">
+                MAIN MENU
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME OVER -->
+    <div id="gameOverScreen" class="screen hidden">
+
+        <div class="gameover-card">
+
+            <div class="game-tag">
+                MISSION ENDED
+            </div>
+
+            <h2>GAME OVER</h2>
+
+            <p id="gameOverMessage">
+                Good work, pilot.
+            </p>
+
+            <div class="results">
+
+                <div class="result-box">
+                    <span>SCORE</span>
+                    <strong id="finalScore">0</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>KILLS</span>
+                    <strong id="finalKills">0</strong>
+                </div>
+
+                <div class="result-box">
+                    <span>BEST</span>
+                    <strong id="gameBestScore">0</strong>
+                </div>
+
+            </div>
+
+            <button id="relaunchButton" class="menu-button main-button">
+                🚀 PLAY AGAIN
+            </button>
+
+            <button id="gameOverMenuButton" class="menu-button secondary-button">
+                MAIN MENU
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOBILE -->
+    <div id="mobileControls">
+
+        <div class="mobile-pad">
+
+            <button class="mobile-btn mobile-up">▲</button>
+
+            <button class="mobile-btn mobile-left">◀</button>
+
+            <button class="mobile-btn mobile-right">▶</button>
+
+            <button class="mobile-btn mobile-down">▼</button>
+
+        </div>
+
+        <button id="mobilePulse" class="mobile-pulse">
+            PULSE
+        </button>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
